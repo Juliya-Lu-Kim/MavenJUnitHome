@@ -4,16 +4,20 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class NumberTest {
     Number number = new Number();
+    FileWriter mockWriter = mock(FileWriter.class);
 
     @Before
     public void Before() {
@@ -29,10 +33,10 @@ public class NumberTest {
 
     // правильно ли применен метод assertNotNull???
     @Test
-    public void writeFile() {
-        System.out.println("Test write file");
-        File expectedFile = new File("number.txt");
-        Assert.assertNotNull(expectedFile);
+    public void writeFile() throws IOException {
+     doThrow(new IOException()).when(mockWriter).write("345");
+     mockWriter.write("345");
+     mockWriter.close();
 
     }
 
